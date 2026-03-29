@@ -26,21 +26,48 @@ class TournamentApp(tk.Tk):
         self._refresh_all_data()
 
     def _apply_styling(self):
+        """Applies a modern, high-contrast, flat-design theme to the GUI."""
+        # Set the absolute background of the main window to a soft slate gray
+        self.configure(bg="#f1f5f9") 
+        
         style = ttk.Style(self)
         if "clam" in style.theme_names():
             style.theme_use("clam")
             
-        style.configure("TFrame", background="#f8f9fa")
-        style.configure("TLabel", background="#f8f9fa", font=("Segoe UI", 10))
-        style.configure("Header.TLabel", font=("Segoe UI", 14, "bold"), foreground="#2c3e50")
+        # Base Container Styling (Make inner frames look like clean white cards)
+        style.configure("TFrame", background="#ffffff")
+        style.configure("TLabel", background="#ffffff", font=("Segoe UI", 11), foreground="#334155")
+        style.configure("Header.TLabel", font=("Segoe UI", 16, "bold"), foreground="#0f172a")
         
-        style.configure("Action.TButton", font=("Segoe UI", 10, "bold"), background="#0d6efd", foreground="white", padding=6)
-        style.map("Action.TButton", background=[("active", "#0b5ed7")])
+        # Notebook (Tabs) Styling
+        style.configure("TNotebook", background="#f1f5f9", borderwidth=0)
+        style.configure("TNotebook.Tab", font=("Segoe UI", 11, "bold"), padding=[25, 12], background="#e2e8f0", foreground="#64748b", borderwidth=0)
+        style.map("TNotebook.Tab", 
+                  background=[("selected", "#ffffff")], 
+                  foreground=[("selected", "#2563eb")]) # Active tab turns blue and white
+        
+        # Primary Action Buttons (Vibrant Blue)
+        style.configure("Action.TButton", font=("Segoe UI", 11, "bold"), background="#2563eb", foreground="white", borderwidth=0, padding=8)
+        style.map("Action.TButton", 
+                  background=[("active", "#1d4ed8")], 
+                  foreground=[("active", "white")])
 
-        style.configure("Danger.TButton", font=("Segoe UI", 10, "bold"), foreground="#dc3545", padding=6)
+        # Danger Button (Crisp Red)
+        style.configure("Danger.TButton", font=("Segoe UI", 11, "bold"), background="#ef4444", foreground="white", borderwidth=0, padding=8)
+        style.map("Danger.TButton", 
+                  background=[("active", "#dc2626")], 
+                  foreground=[("active", "white")])
 
-        style.configure("Treeview.Heading", font=("Segoe UI", 10, "bold"), background="#e9ecef")
-        style.configure("Treeview", font=("Segoe UI", 10), rowheight=25)
+        # Radio Buttons
+        style.configure("TRadiobutton", background="#ffffff", font=("Segoe UI", 11), foreground="#334155")
+        style.map("TRadiobutton", background=[("active", "#ffffff")])
+
+        # Data Tables (Treeview)
+        style.configure("Treeview", font=("Segoe UI", 10), rowheight=32, background="#ffffff", fieldbackground="#ffffff", borderwidth=0)
+        style.map("Treeview", 
+                  background=[('selected', '#dbeafe')], # Soft blue highlight on click
+                  foreground=[('selected', '#1e40af')]) # Deep blue text on click
+        style.configure("Treeview.Heading", font=("Segoe UI", 11, "bold"), background="#f8fafc", foreground="#0f172a", padding=6)
 
     def _patch_database(self):
         query = '''CREATE TABLE IF NOT EXISTS tournament_enrollments (
