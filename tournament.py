@@ -1,5 +1,6 @@
 from participant import Participant
 from match import Match
+from exceptions import LogicException
 
 class Tournament:
     def __init__(self, tournament_id: int, name: str):
@@ -19,7 +20,7 @@ class Tournament:
         Note: We will add custom Exception handling here in Step 5.
         """
         if len(self.__participants) < 2:
-            raise ValueError("Not enough participants to generate brackets.")
+            raise LogicException("Not enough participants to generate brackets.")
             
         self.__matches.clear()
         match_id = 1
