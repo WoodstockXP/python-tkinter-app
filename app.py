@@ -11,8 +11,12 @@ class TournamentApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Flash Tournament Management System | Pro Edition")
-        self.geometry("1050x750") 
-        
+        # Obtener el tamaño del display y ajustar la ventana
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        self.geometry(f"{screen_width}x{screen_height}")
+        self.state('zoomed')  # Maximiza la ventana en Windows
+
         self._apply_styling()
 
         try:
